@@ -63,7 +63,7 @@ export function init(){
     if(grid.reduce((a,b)=>{return a+b}) == grid.length){
       setTimeout(function(){
         round++; setRound();
-      },1000);
+      },500);
     }
     moveElem.innerHTML = "moves: "+moves;
     localStorage.setItem("lights_round",round);
