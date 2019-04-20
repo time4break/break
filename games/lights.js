@@ -1,12 +1,8 @@
 export function init(){
   var round, cell_width,grid, moves;
   var deg = 0;
-  var moveElem = document.createElement("div");
   var resetRound = document.createElement("button"); resetRound.innerHTML = "clear round";
   var resetGame = document.createElement("button"); resetGame.innerHTML = "reset game";
-  moveElem.id = "moveElem";
-  moves = 0;
-  document.body.appendChild(moveElem);
   document.body.appendChild(resetRound);
   document.body.appendChild(resetGame);
   round = 1;
@@ -47,7 +43,6 @@ export function init(){
   }
   
   canvas.addEventListener("touchend",function(e){
-    moves++;
     var x = e.changedTouches[0].clientX - canvas.offsetLeft;
     var y = e.changedTouches[0].clientY - canvas.offsetTop;
     var c = Math.floor(x/cell_width) + Math.floor(y/cell_width)*round;
@@ -69,7 +64,6 @@ export function init(){
         round++; setRound();
       },500);
     }
-    moveElem.innerHTML = "moves: "+moves;
     localStorage.setItem("lights_round",round);
     localStorage.setItem("lights_grid",grid.join(""));
     localStorage.setItem("lights_moves",moves);
@@ -80,7 +74,6 @@ export function init(){
     grid = localStorage.getItem("lights_grid").split("").map(Number);
     moves = Number(localStorage.getItem("lights_moves"));
     cell_width = canvas.width/round;
-    moveElem.innerHTML = "moves: "+moves;
   }
   
 window.addEventListener("deviceorientation",function(e){
