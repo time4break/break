@@ -2,9 +2,13 @@ export function init(){
   var round, cell_width,grid, moves;
   var deg = 0;
   var moveElem = document.createElement("div");
+  var resetRound = document.createElement("button"); resetRound.innerHTML = "clear round";
+  var resetGame = document.createElement("button"); resetGame.innerHTML = "reset game";
   moveElem.id = "moveElem";
   moves = 0;
   document.body.appendChild(moveElem);
+  document.body.appendChild(resetRound);
+  document.body.appendChild(resetGame);
   round = 1;
   
   function setRound(){
@@ -89,4 +93,10 @@ window.addEventListener("deviceorientation",function(e){
     draw();
   }
   render();
+  
+  resetRound.addEventListener("click",setRound,false);
+  resetGame.addEventListener("click",function(){
+    round = 1;
+    setRound();
+  },false);
 }
