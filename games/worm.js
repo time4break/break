@@ -1,5 +1,5 @@
 export function init(){
-  var num_across, cell_width, init_cell, history, food, direction;
+  var num_across, cell_width, init_cell, history, food,prev_dir, direction;
   var overlay = document.createElement("div");
   overlay.id = "overlay";
   document.body.appendChild(overlay);
@@ -9,6 +9,7 @@ export function init(){
   init_cell = Math.floor((num_across*num_across)/2) + 1;
   history = [init_cell,init_cell+1];
   food = init_cell + 6;
+  prev_dir = "right";
   direction = "right";
 function getXY(cell){
     var x =  cell_width * (cell % num_across);
@@ -76,18 +77,27 @@ function getXY(cell){
   var deg = {alpha:null,beta:null,gamma:null};
   window.addEventListener("deviceorientation",function(e){
     deg.alpha = e.alpha; deg.beta = e.beta; deg.gamma = e.gamma;
+    var new_dir = direction;
     if(Math.abs(deg.beta) > Math.abs(deg.gamma)){
       if(Math.sign(deg.beta) == -1){
-        direction = "up";
+        new_dir = "up";
       } else {
-        direction = "down";
+        new_dir = "down";
       }
     } else {
       if(Math.sign(deg.gamma) == -1){
-        direction = "left";
+        new_dir = "left";
       } else {
-        direction = "right";
+        new_dir = "right";
       }
+    }
+    if(new_dir != direction){
+      prev_dir = direction;
+      direction = new_dir;
+    }
+    
+    if((direction == "up" && prev_dir == "down") || (direction == "down" && prev_dir == "up") || (direction == "left" && prev_dir == "right") || (direction == "right" && prev_dir == "left")){
+      history.reverse();
     }
   },false);
 }
