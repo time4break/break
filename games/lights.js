@@ -47,7 +47,13 @@ export function init(){
       if(Math.abs(grid[i]-dgrid[i]) >= 0.01){
         //dgrid.splice(c,1);
         dgrid[i]+=(t*(60/1000)*0.1*Math.sign(grid[i]-dgrid[i]));
-        dgrid[i] = Math.floor(dgrid[i]*1000)/1000;
+        dgrid[i] = Math.ceil(dgrid[i]*1000)/1000;
+        if(dgrid[i] > 1){
+          dgrid[i] = 1;
+        }
+        if(dgrid[i] < 0){
+          dgrid[i] = 0;
+        }
       }
     }
   }
