@@ -18,7 +18,7 @@ export function init(){
     localStorage.setItem("lights_grid",grid.join(""));
   }
   
-  function draw(){
+  function draw(t){
     ctx.beginPath();
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.beginPath();
@@ -44,9 +44,10 @@ export function init(){
       ctx.fillStyle = "hsl("+hue+",50%,50%)";
       ctx.fill();
       
-      if(Math.abs(grid[i]-dgrid[i]) >= 0.01){
+      if(Math.abs(grid[i]-dgrid[i]) >= 0.005){
         //dgrid.splice(c,1);
-        dgrid[i]+=0.03*Math.sign(grid[i]-dgrid[i]);
+        dgrid[i]+=(t*(60/1000)*0.1*Math.sign(grid[i]-dgrid[i]));
+        dgrid[i] = Math.floor(dgrid[i]*1000)/1000;
       }
     }
   }
@@ -96,8 +97,12 @@ window.addEventListener("deviceorientation",function(e){
   var anim;
   var render = function(){
     anim = requestAnimationFrame(render);
-    draw();
+    var dt = Date.now() - t;
+    t = Date.now();
+    draw(dt);
+    document.title = dt;
   }
+  var t = Date.now();
   render();
   
   resetRound.addEventListener("click",setRound,false);
