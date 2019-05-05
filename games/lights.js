@@ -44,7 +44,7 @@ export function init(){
       ctx.fillStyle = "hsl("+hue+",50%,50%)";
       ctx.fill();
       
-      if(Math.abs(grid[i]-dgrid[i]) >= 0.005){
+      if(Math.abs(grid[i]-dgrid[i]) >= 0.01){
         //dgrid.splice(c,1);
         dgrid[i]+=(t*(60/1000)*0.1*Math.sign(grid[i]-dgrid[i]));
         dgrid[i] = Math.floor(dgrid[i]*1000)/1000;
