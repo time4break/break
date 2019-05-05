@@ -106,7 +106,6 @@ window.addEventListener("deviceorientation",function(e){
     var dt = Date.now() - t;
     t = Date.now();
     draw(dt);
-    document.title = dt;
   }
   var t = Date.now();
   render();
