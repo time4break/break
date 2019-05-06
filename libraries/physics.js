@@ -1,6 +1,6 @@
 export function vector(){//takes in either an array or two arguments: x, y; or takes an angle (radians) and returns a normalised vector
   if(Array.isArray(arguments[0])){
-    this.value = arguments[0];
+    this.value = Array.from(arguments[0]);
   } else if(arguments.length > 1) {
     this.value = [arguments[0],arguments[1]];
   } else {
