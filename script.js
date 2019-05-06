@@ -14,8 +14,8 @@ init = function(){
   window.addEventListener("deviceorientation",function(e){
     var g = e.gamma * 5; g = Math.floor(g*10)/10;
     var b = e.beta * 5; b = Math.floor(b*10)/10;
-    document.body.style.backgroundPositionX = "calc(-100vw + "+e.gamma+"vw)";
-    document.body.style.backgroundPositionY = "calc(-100vh + "+e.beta+"vh)";
+    document.body.style.backgroundPositionX = "calc(100vw + "+e.gamma+"vw)";
+    document.body.style.backgroundPositionY = "calc(100vh + "+e.beta+"vh)";
   },false);
 }
 window.onload = init;
