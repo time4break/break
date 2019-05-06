@@ -1,5 +1,5 @@
 export function init(){
-  var round, cell_width,grid, moves, dgrid;
+  var round, cell_width,grid, dgrid;
   var deg = 0;
   var resetRound = document.createElement("button"); resetRound.innerHTML = "clear round";
   var resetGame = document.createElement("button"); resetGame.innerHTML = "reset game";
@@ -9,13 +9,13 @@ export function init(){
   round = 1;
   
   function setRound(){
+    localStorage.setItem("lights_round",round);
     cell_width = canvas.width/round;
     grid = [];
     for(var i=0; i<round*round; i++){
       grid.push(0);
       dgrid.push(0);
     }
-    localStorage.setItem("lights_grid",grid.join(""));
   }
   
   function draw(t){
@@ -45,7 +45,6 @@ export function init(){
       ctx.fill();
       
       if(Math.abs(grid[i]-dgrid[i]) >= 0.01){
-        //dgrid.splice(c,1);
         dgrid[i]+=(t*(60/1000)*0.1*Math.sign(grid[i]-dgrid[i]));
         dgrid[i] = Math.ceil(dgrid[i]*1000)/1000;
         if(dgrid[i] > 1){
@@ -65,36 +64,28 @@ export function init(){
     grid[c] = 1 - grid[c];
     if(c%round != 0){
       grid[c-1] = 1 - grid[c-1];
-      //dgrid.push([c-1,1 - grid[c-1]]);
     }
     if((c+1)%round != 0){
       grid[c+1] = 1 - grid[c+1];
-      //dgrid.push([c+1,1 - grid[c+1]]);
     }
     if((c-round) >= 0){
       grid[c-round] = 1 - grid[c-round];
-     // dgrid.push([c-round,1 - grid[c-round]]);
     }
     if((c + round) < round*round){
       grid[c+round] = 1 - grid[c+round];
-     // dgrid.push([c+round,1 - grid[c+round]]);
     }
     if(grid.reduce((a,b)=>{return a+b}) == grid.length){
       setTimeout(function(){
         round++; setRound();
       },500);
     }
-    localStorage.setItem("lights_round",round);
-    localStorage.setItem("lights_grid",grid.join(""));
-    localStorage.setItem("lights_moves",moves);
   },false);
-  setRound();
+
   if(localStorage.getItem("lights_round") != null){
     round = Number(localStorage.getItem("lights_round"));
-    grid = localStorage.getItem("lights_grid").split("").map(Number);
-    moves = Number(localStorage.getItem("lights_moves"));
     cell_width = canvas.width/round;
   }
+  setRound();
   
 window.addEventListener("deviceorientation",function(e){
   deg = e.gamma * 2;

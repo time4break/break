@@ -8,3 +8,8 @@ html, body{
   justify-content: center;
 }
 
+body {
+  background: linear-gradient(-45deg, hsl(0,50%,50%),hsl(27,50%,50%));
+  background-size: 150%;
+  background-position: -50vw -50vh;
+}
