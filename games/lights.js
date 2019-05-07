@@ -5,38 +5,50 @@ export function init(){
   var resetGame = document.createElement("button"); resetGame.innerHTML = "reset game";
   document.body.appendChild(resetRound);
   document.body.appendChild(resetGame);
+  canvas.style.background = "hsla(0,0%,0%,0)";
   dgrid = [];//for animations
   round = 1;
-  
+  var offset =2;
   function setRound(){
     localStorage.setItem("lights_round",round);
-    cell_width = canvas.width/round;
+    cell_width = (canvas.width/round);
     grid = [];
     for(var i=0; i<round*round; i++){
       grid.push(0);
-      dgrid.push(0);
+      dgrid.push(1);
     }
   }
   
   function draw(t){
     ctx.beginPath();
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.beginPath();
-    for(var i=0; i<round; i++){
-      ctx.strokeStyle = "white";
-      ctx.moveTo(i*cell_width,0);
-      ctx.lineTo(i*cell_width,canvas.width);
-      ctx.moveTo(0,i*cell_width);
-      ctx.lineTo(canvas.width,i*cell_width);
+//    ctx.beginPath();
+//    for(var i=0; i<round; i++){
+//      ctx.strokeStyle = "white";
+//      ctx.moveTo(i*cell_width,0);
+//      ctx.lineTo(i*cell_width,canvas.width);
+//      ctx.moveTo(0,i*cell_width);
+//      ctx.lineTo(canvas.width,i*cell_width);
+//    }
+//    //ctx.stroke();  
+    //ctx.beginPath();
+    
+    var i=grid.length;
+    ctx.fillStyle = "hsla(0,0%,0%,0.5)";
+    while(i--){
+      var x = i%round * cell_width + offset/2;
+      var y = Math.floor(i/round) * cell_width + offset/2;
+      ctx.moveTo(x,y);
+      ctx.rect(x,y,cell_width-offset,cell_width-offset);
     }
-    ctx.stroke();  
-    var i=dgrid.length;
+     ctx.fill();
+    i=dgrid.length;
     while(i--){
       var o = dgrid[i];
-      var w = cell_width*o;
-      var of = cell_width - w;
-      var x = i%round * cell_width + of/2;
-      var y = Math.floor(i/round) * cell_width + of/2;
+      var w = Math.max(cell_width*o - offset,0);
+      var of = cell_width * (1-o);
+      var x = (i%round * cell_width) + of/2 + offset/2;
+      var y = Math.floor(i/round) * (cell_width) + of/2 + offset/2;
       ctx.beginPath();
       ctx.moveTo(x,y);
       ctx.rect(x,y,w,w);
@@ -55,6 +67,7 @@ export function init(){
         }
       }
     }
+    
   }
   
   canvas.addEventListener("touchend",function(e){
