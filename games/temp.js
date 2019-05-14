@@ -9,8 +9,12 @@ export function init(){
 function main(){
   var anim;
   var boundary = new p.vector(canvas.width,canvas.height);
-  var particle = new p.particle(new p.vector(100,100),10);
-  particle.v = new p.vector(0,1);
+  var particle = new p.particle();
+  particle.l.x = 100;
+  particle.l.y = 100;
+  particle.r = 10;
+  particle.v = new p.vector(0,0);
+  
   ctx.fillStyle = "white";
   ctx.strokeStyle = "white";
   function render(){
@@ -18,21 +22,14 @@ function main(){
     var dt = Date.now() - t;
     t = Date.now();
     //debugger;
-    if(particle.l.value[1] + particle.r > canvas.height){
-      particle.v = particle.v.scale(-1);
-      particle.l = new p.vector(particle.l.value[0],canvas.height-particle.r);
-    }
-    if(particle.l.value[1] - particle.r < 0){
-      particle.v = particle.v.scale(-1);
-      particle.l = new p.vector(particle.l.value[0],particle.r);
-    }
-    particle.update(dt * 60/1000);
-    
+    particle.addForce(new p.vector(0,0.1));
+    particle.update(canvas,dt * 60/1000);
+    particle.bounceOffEdges(canvas);
    
     
     ctx.beginPath();
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.arc(particle.l.value[0],particle.l.value[1],particle.r,0,Math.PI*2);
+    ctx.arc(particle.l.x,particle.l.y,particle.r,0,Math.PI*2);
     ctx.fill();
     ctx.moveTo(0,100);
     ctx.lineTo(canvas.width,100);
