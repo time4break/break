@@ -1,3 +1,35 @@
+body {
+  color:white;
+}
+
+#resetGame {
+  display: none;
+}
+
+#header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.5fr;
+  grid-template-rows: 1fr;
+  justify-content:space-between;
+  align-content: space-between;
+  align-items:center;
+  justify-items:center;
+  margin-bottom: 1vh;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#helpIcon {
+  border-radius: 100%;
+  background: hsla(0,0%,0%,0.5);
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.22);
+  width:10vmin;
+  height:10vmin;
+  text-align: center;
+  line-height: 10vmin;
+  font-size: 1.5rem;
+}
+
 #moveElem {
   color:#9d9d9d;
   font-size: 2rem;
@@ -6,12 +38,90 @@
 
 button {
   border:none;
-  border-radius: 2px;
-  background: white;
+  color:white;
+  border-radius: 5px;
+  background: hsla(0,0%,0%,0.5);
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.22);
-  margin-top:2vh;
-  padding: 1vh 0;
+  margin-top:1vh;
+  padding: 1.5vh 0;
   width:98vw;
   margin-left:auto;
   margin-right:auto;
+  font-size: 1.2rem;
+}
+
+#moveCounter::before{
+  content: "min-moves: "
+}
+#roundCounter::before{
+  content: "round: "
+}
+#currMoveCounter {
+  text-align: center;
+  margin-top: 1vh;
+  font-size: 1.5rem;
+}
+#currMoveCounter::before{
+  content: "current moves: "
+}
+
+#buttonWrap {
+  margin-top:1vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  justify-content:space-between;
+  align-content: space-between;
+  align-items:center;
+  justify-items:center;
+}
+
+#buttonWrap > div {
+  text-align: center;
+  font-size: 1.5rem;
+  width:95%;
+  border-radius: 5px;
+  background: hsla(0,0%,0%,0.5);
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.22);
+  transition: 1s all;
+  padding: 1.5vh 0;
+}
+
+#buttonWrap > div.disabled {
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0);
+  opacity:0.5;
+}
+
+#instructions {
+  border-radius: 5px;
+  width:90vw;
+  height:90vh;
+  position: absolute;
+  top:5vh;
+  left:5vw;
+  background: hsla(0,0%,0%,0.8);
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.22);
+  z-index: 100;
+  transition: 0.5s all;
+  font-size: 1.2rem;
+  pointer-events: all;
+  text-align: center;
+}
+
+#instructions > ol {
+  display: grid;
+  grid-auto-rows: 1fr;
+  justify-content: space-between;
+  align-content: space-between;
+  height: 60vh;
+  text-align: left;
+}
+
+#instructions.disabled {
+  opacity: 0;
+  pointer-events: none;
+  transform:translateY(2vh);
+}
+h1 {
+  text-align: center;
 }

@@ -1,0 +1,19 @@
+#moveElem {
+  color:#9d9d9d;
+  font-size: 2rem;
+  text-align: center;
+}
+
+button {
+  border:none;
+  color:white;
+  border-radius: 5px;
+  background: hsla(0,0%,0%,0.5);
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.22);
+  margin-top:1vh;
+  padding: 1.5vh 0;
+  width:98vw;
+  margin-left:auto;
+  margin-right:auto;
+  font-size: 1.2rem;
+}
